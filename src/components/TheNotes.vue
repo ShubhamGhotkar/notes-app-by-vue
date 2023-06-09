@@ -33,6 +33,7 @@
     </header>
     <main>
       <VueEditor v-model="editorData" />
+      <button @click="output">CLick</button>
     </main>
   </section>
 </template>
@@ -52,13 +53,32 @@ export default {
     return {
       editorData: "",
       isButtonCheck: false,
+      updatedData: [],
     };
   },
+  created() {
+    this.editorData = this.notes.value;
+  },
+  updated() {
+    const updatedNotes = this.notesArray.map((notes) => {
+      if (notes.id === this.notes.id) {
+        notes.value = this.editorData;
+      }
+      return notes;
+    });
+
+    this.$emit("setValue", updatedNotes);
+  },
   methods: {
+    output() {
+      console.log(this.editorData);
+    },
     handleClick() {
       this.isButtonCheck = !this.isButtonCheck;
       console.log(this.isButtonCheck);
     },
+
+    // set value to the object
 
     dragStart(e) {
       console.log("start", e);
@@ -69,13 +89,9 @@ export default {
 
     handleDelete(ind) {
       let arr = this.notesArray.filter((val, indx) => indx !== ind);
-
+      this.updatedData = arr;
       this.$emit("update-data", arr);
     },
-  },
-
-  mounted() {
-    // console.log(this.notes);
   },
 };
 </script>

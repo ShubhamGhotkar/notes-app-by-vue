@@ -1,19 +1,25 @@
 <template>
   <section class="notes-section">
+    <!-- Header  -->
     <TheHeader />
     <div class="data-container">
       <div class="todo-container">
+        <!-- Add to notes -->
         <button class="notes-btn" @click="addNotes">Add Notes</button>
+        <!-- Notes Component -->
         <Notes
           v-for="(notes, ind) in notesArray"
-          :key="ind"
+          :key="notes.id"
           :ind="ind"
           :notesArray="notesArray"
           @update-data="updateData"
+          @setValue="setValue"
           :notes="notes"
         />
       </div>
+      <!-- Doing container -->
       <div class="doing-container"></div>
+      <!-- Done container -->
       <div class="done-container"></div>
     </div>
   </section>
@@ -22,6 +28,7 @@
 <script>
 import Notes from "../components/TheNotes.vue";
 import TheHeader from "../components/TheHeader.vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   components: {
@@ -35,20 +42,47 @@ export default {
     };
   },
 
+  created() {
+    const localData = this.getDataFromLocalStorage();
+    this.notesArray = localData;
+  },
+
   methods: {
+    // Add to notes arrayx
     addNotes() {
+      // create new notes
       let notes = {
-        id: Math.random(),
-        description: "",
+        id: uuidv4(),
+        value: "",
       };
+
+      // push to notesArray
       this.notesArray.push(notes);
+      this.setToLocalStorage(this.notesArray);
     },
+
+    setValue(value) {
+      this.setToLocalStorage(value);
+    },
+
     deleteNotes() {
       //   console.log("notes");
     },
 
     updateData(data) {
-      this.notesArray = data;
+      this.setToLocalStorage(data);
+    },
+
+    // set to Local Storage
+    setToLocalStorage(data) {
+      localStorage.setItem("Notes", JSON.stringify(data));
+    },
+
+    // get the data form local storage
+    getDataFromLocalStorage() {
+      let data = localStorage.getItem("Notes");
+      let x = JSON.parse(data);
+      return x;
     },
   },
 };

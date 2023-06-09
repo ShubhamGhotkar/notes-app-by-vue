@@ -15,6 +15,10 @@ html {
   font-size: 10px;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 .h2-style {
   font-size: 3.4rem;
   text-align: center;
