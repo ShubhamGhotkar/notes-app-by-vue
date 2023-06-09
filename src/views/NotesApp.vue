@@ -71,6 +71,9 @@ export default {
 
     updateData(data) {
       this.setToLocalStorage(data);
+
+      let newData = this.getDataFromLocalStorage();
+      this, (this.notesArray = newData);
     },
 
     // set to Local Storage

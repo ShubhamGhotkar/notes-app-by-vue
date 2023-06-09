@@ -7,7 +7,7 @@
   >
     <header>
       <nav>
-        <li>Edit Off</li>
+        <li>Edit {{ isButtonCheck ? "On" : "Off" }}</li>
         <li>
           <ToggleButton :width="45" v-model="isButtonCheck" color="#3474ac">
           </ToggleButton>
@@ -32,8 +32,7 @@
       </nav>
     </header>
     <main>
-      <VueEditor v-model="editorData" />
-      <button @click="output">CLick</button>
+      <VueEditor v-model="editorData" :disabled="isButtonCheck" />
     </main>
   </section>
 </template>
@@ -70,16 +69,6 @@ export default {
     this.$emit("setValue", updatedNotes);
   },
   methods: {
-    output() {
-      console.log(this.editorData);
-    },
-    handleClick() {
-      this.isButtonCheck = !this.isButtonCheck;
-      console.log(this.isButtonCheck);
-    },
-
-    // set value to the object
-
     dragStart(e) {
       console.log("start", e);
     },
