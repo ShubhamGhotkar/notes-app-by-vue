@@ -1,13 +1,8 @@
 <template>
-  <section
-    class="note-container"
-    draggable="true"
-    @dragstart="dragStart"
-    @dragend="dragEnd"
-  >
+  <section class="note-container">
     <header>
       <nav>
-        <li>Edit {{ isButtonCheck ? "On" : "Off" }}</li>
+        <li>EDIT {{ isButtonCheck ? "OFF" : "ON" }}</li>
         <li>
           <ToggleButton :width="45" v-model="isButtonCheck" color="#3474ac">
           </ToggleButton>
@@ -43,7 +38,7 @@ import { VueEditor } from "vue2-editor";
 import { ToggleButton } from "vue-js-toggle-button";
 
 export default {
-  props: ["ind", "notesArray", "notes"],
+  props: ["ind", "notesArray", "notes", "name"],
   components: {
     VueEditor,
     ToggleButton,
@@ -66,20 +61,13 @@ export default {
       return notes;
     });
 
-    this.$emit("setValue", updatedNotes);
+    this.$emit("setValue", updatedNotes, this.name);
   },
   methods: {
-    dragStart(e) {
-      console.log("start", e);
-    },
-    dragEnd(e) {
-      console.log("end", e);
-    },
-
     handleDelete(ind) {
       let arr = this.notesArray.filter((val, indx) => indx !== ind);
       this.updatedData = arr;
-      this.$emit("update-data", arr);
+      this.$emit("update-data", arr, this.name);
     },
   },
 };
@@ -89,7 +77,12 @@ export default {
 .note-container {
   width: 25vw;
   border: 1.5px solid gray;
-  margin: 1.5rem auto;
+  margin: 1.5rem auto 2.5rem auto;
+
+  position: relative;
+  left: 0;
+
+  box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.2);
 }
 header {
   width: 100%;
@@ -116,6 +109,4 @@ nav {
   stroke: white;
   cursor: pointer;
 }
-
-/* Drag and Drop */
 </style>
