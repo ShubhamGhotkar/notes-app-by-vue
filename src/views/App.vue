@@ -1,48 +1,36 @@
 <template>
   <section class="notes-section">
-    <div class="todo-container bc-wh">
-      <draggable group="todo-group" v-model="notesArray">
-        <Notes
-          v-for="(notes, ind) in notesArray"
-          :key="notes.id"
-          :ind="ind"
-          :notesArray="notesArray"
-          @update-data="updateData"
-          @setValue="setValue"
-          :notes="notes"
-          name="notesArray"
-        />
-      </draggable>
+    <div class="todo-container">
+      <!-- <draggable group="todo-group" v-model="notesArray"> -->
+      <TheComp
+        :notesArray="notesArray"
+        @update-data="updateData"
+        @setValue="setValue"
+        name="notesArray"
+      />
+      <!-- </draggable> -->
     </div>
     <!-- Doing container -->
-    <div class="doing-container bc-wh">
-      <draggable group="todo-group" v-model="doingArray">
-        <Notes
-          v-for="(notes, ind) in doingArray"
-          :key="notes.id"
-          :ind="ind"
-          :notesArray="doingArray"
-          @update-data="updateData"
-          @setValue="setValue"
-          :notes="notes"
-          name="doingArray"
-        />
-      </draggable>
+    <div class="doing-container">
+      <!-- <draggable group="todo-group" v-model="doingArray"> -->
+      <TheComp
+        :notesArray="doingArray"
+        @update-data="updateData"
+        @setValue="setValue"
+        name="doingArray"
+      />
+      <!-- </draggable> -->
     </div>
     <!-- Done container -->
-    <div class="done-container bc-wh">
-      <draggable group="todo-group" v-model="doneArray">
-        <Notes
-          v-for="(notes, ind) in doneArray"
-          :key="notes.id"
-          :ind="ind"
-          :notesArray="doneArray"
-          @update-data="updateData"
-          @setValue="setValue"
-          :notes="notes"
-          name="doneArray"
-        />
-      </draggable>
+    <div class="done-container">
+      <!-- <draggable group="todo-group" v-model="doneArray"> -->
+      <TheComp
+        :notesArray="doneArray"
+        @update-data="updateData"
+        @setValue="setValue"
+        name="doneArray"
+      />
+      <!-- </draggable> -->
     </div>
 
     <button class="notes-btn" @click="addNotes">Add Notes</button>
@@ -50,14 +38,14 @@
 </template>
 
 <script>
-import Notes from "../components/TheNotes.vue";
-import draggable from "vuedraggable";
+// import draggable from "vuedraggable";
 import { v4 as uuidv4 } from "uuid";
+import TheComp from "@/components/TheComp.vue";
 
 export default {
   components: {
-    Notes,
-    draggable,
+    // draggable,
+    TheComp,
   },
 
   data() {
@@ -72,9 +60,9 @@ export default {
     this.setDataToVariable();
   },
 
-  updated() {
-    this.setData();
-  },
+  // updated() {
+  //   this.setData();
+  // },
 
   methods: {
     //FUNCTION FOR  SET DATA TO LOCAL STORAGE
@@ -143,19 +131,16 @@ export default {
 <style scoped>
 .notes-section {
   width: 96vw;
-  margin: 6rem auto 0 auto;
+  margin: 8rem auto 0 auto;
 
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 2rem;
-
-  background-color: whitesmoke;
+  gap: 1rem;
 }
 
 .todo-container {
   width: 33%;
-  min-height: 91vh;
 }
 .doing-container {
   width: 33%;
@@ -188,8 +173,5 @@ export default {
 
 .notes-btn:hover {
   background-color: rgb(64, 64, 201);
-}
-.bc-wh {
-  background-color: rgba(218, 217, 217, 0.441);
 }
 </style>

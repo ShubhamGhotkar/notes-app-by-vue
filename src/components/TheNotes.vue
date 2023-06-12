@@ -83,6 +83,7 @@ export default {
   left: 0;
 
   box-shadow: 0px 7px 20px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
 }
 header {
   width: 100%;
