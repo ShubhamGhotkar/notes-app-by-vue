@@ -32,4 +32,20 @@ body {
   text-align: center;
   padding: 1rem;
 }
+
+@media only screen and (max-width: 1268px) {
+  html {
+    font-size: 8px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  html {
+    font-size: 7px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  html {
+    font-size: 5px;
+  }
+}
 </style>

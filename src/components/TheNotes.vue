@@ -27,7 +27,7 @@
       </nav>
     </header>
     <main>
-      <VueEditor v-model="editorData" :disabled="isButtonCheck" />
+      <VueEditor v-model="editorData" :disabled="isButtonCheck" ref="editor" />
     </main>
   </section>
 </template>
@@ -47,11 +47,14 @@ export default {
     return {
       editorData: "",
       isButtonCheck: false,
-      updatedData: [],
+      isFocusOn: false,
     };
   },
   created() {
     this.editorData = this.notes.value;
+  },
+  mounted() {
+    this.setEditorFocus();
   },
   updated() {
     const updatedNotes = this.notesArray.map((notes) => {
@@ -66,8 +69,13 @@ export default {
   methods: {
     handleDelete(ind) {
       let arr = this.notesArray.filter((val, indx) => indx !== ind);
-      this.updatedData = arr;
       this.$emit("update-data", arr, this.name);
+    },
+    setEditorFocus() {
+      this.$nextTick(() => {
+        const editorElement = this.$refs.editor.$el.querySelector(".ql-editor");
+        editorElement.focus();
+      });
     },
   },
 };
@@ -109,5 +117,11 @@ nav {
   height: 2.8rem;
   stroke: white;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 898px) {
+  nav {
+    width: 100%;
+  }
 }
 </style>

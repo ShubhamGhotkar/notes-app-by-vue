@@ -147,26 +147,31 @@ export default {
 
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
   gap: 2rem;
 
   background-color: whitesmoke;
 }
 
 .todo-container {
-  width: 33%;
   min-height: 91vh;
+  max-height: auto;
+  flex: 0 1 33%;
 }
 .doing-container {
-  width: 33%;
+  flex: 0 1 33%;
   min-height: 91vh;
+  max-height: auto;
   display: block;
   border-left: 2px solid gray;
   border-right: 2px solid gray;
+
+  flex: 1;
 }
 .done-container {
-  width: 33%;
+  flex: 0 1 33%;
+  max-height: auto;
   min-height: 91vh;
+  flex: 1;
 }
 
 .notes-btn {

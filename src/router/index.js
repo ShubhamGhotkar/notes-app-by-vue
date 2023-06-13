@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import NotesApp from "../views/NotesApp.vue";
-import App from "../views/App.vue";
+// import App from "../views/App.vue";
 
 Vue.use(VueRouter);
 
@@ -15,11 +15,11 @@ const routes = [
     name: "home",
     component: NotesApp,
   },
-  {
-    path: "/app",
-    name: "app",
-    component: App,
-  },
+  // {
+  //   path: "/app",
+  //   name: "app",
+  //   component: App,
+  // },
 ];
 
 const router = new VueRouter({
